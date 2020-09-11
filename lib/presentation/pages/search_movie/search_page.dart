@@ -69,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                       fontFamily: 'fontSemiBold',
                       fontSize: 16,
                     ),
-                    text: "Resultados para: ",
+                    text: "Results for: ",
                     children: <TextSpan>[
                       TextSpan(
                         text: '${snapshot.data}',
