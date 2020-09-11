@@ -19,7 +19,6 @@ Application that will consume The Movie Database (TMDb) where you can view upcom
 
 <img src="readme_imgs/img1.png" width="600">
 
-
 By using Flutter as an example, we have four layers, keeping the "plugin architecture", with the main focus on the Application Domain. In this layer inhabits the two main business rules, the **entities** and the **usecases**.
 
 <img src="readme_imgs/img2.png" width="600">
@@ -37,4 +36,13 @@ By using Flutter as an example, we have four layers, keeping the "plugin archite
 
 #### [transparent_image:](https://pub.dev/packages/transparent_image)
 > A simple transparent image. Represented as a Uint8List, which was originally extracted from the Flutter codebase (was private in the test package).
+
+### Screenshots:
+
+<img src="screenshots/app.gif" width="300">
+<img src="screenshots/Simulator Screen Shot - iPhone 11 - 2020-09-11 at 08.10.46.png" width="300">
+<img src="screenshots/Simulator Screen Shot - iPhone 11 - 2020-09-11 at 08.11.03.png" width="300">
+<img src="screenshots/Simulator Screen Shot - iPhone 11 - 2020-09-11 at 08.13.57.png" width="300">
+<img src="screenshots/Simulator Screen Shot - iPhone 11 - 2020-09-11 at 08.14.03.png" width="300">
+<img src="screenshots/Simulator Screen Shot - iPhone 11 - 2020-09-11 at 09.29.49.png" width="300">
 
