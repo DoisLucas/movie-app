@@ -37,6 +37,20 @@ By using Flutter as an example, we have four layers, keeping the "plugin archite
 #### [transparent_image:](https://pub.dev/packages/transparent_image)
 > A simple transparent image. Represented as a Uint8List, which was originally extracted from the Flutter codebase (was private in the test package).
 
+### Build info:
+
+With the flutter already installed, clone the repository and open it with your favorite code editor, run the pub get in the pubspec.yaml file and wait until the build finishes
+
+Flutter version used: v1.17.5
+
+
+### Comments:
+
+1. I made an infinite list where upon reaching 70% of the list, a new request is made to upload new films
+
+2. It would not be so cool to put the genre of the film in the initial listing because the endpoint just returned the genre id, I would have to make a new request to get the details of each film, so I left the genre of the film only on the details screen
+
+3. I used the concept of BLoC in state management, using StreamBuilders and Streams (RxDart) to update the view reactively (fire effects).
 ### Screenshots:
 
 <img src="screenshots/app.gif" width="300">
