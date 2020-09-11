@@ -4,6 +4,26 @@
 
 Application that will consume The Movie Database (TMDb) where you can view upcoming movies and search for movies by text.
 
+### Clean Architecture:
+
+**Robert C. Martin** states that, to be considered "clean", an architecture must have at least 4 main and independent layers. They are:
+
+1. Enterprise Business Rules
+2. Application Business Rules
+3. Interface Adapters
+4. Frameworks & Drivers (External)
+
+<img src="readme_imgs/img3.png" width="600">
+
+### Clean Dart
+
+<img src="readme_imgs/img1.png" width="600">
+
+
+By using Flutter as an example, we have four layers, keeping the "plugin architecture", with the main focus on the Application Domain. In this layer inhabits the two main business rules, the **entities** and the **usecases**.
+
+<img src="readme_imgs/img2.png" width="600">
+
 ### Packages used:
 
 #### [Dio:](https://pub.dev/packages/dio)
