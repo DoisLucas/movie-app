@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/injector_provider.dart';
 import 'package:movieapp/presentation/pages/home/home_page.dart';
 
+//TODO refactor UI
+//TODO remove interceptors
+
 void main() {
   setupInjection();
   runApp(MyApp());
