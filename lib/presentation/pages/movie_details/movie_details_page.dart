@@ -67,7 +67,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
         background: FadeInImage.memoryNetwork(
           placeholder: kTransparentImage,
           width: 56,
-          image: imdbBaseUrl.image_url + widget.movie.backdropPath,
+          image: ImdbBaseUrl.image_url + widget.movie.backdropPath,
           fit: BoxFit.cover,
         ),
       );
@@ -87,7 +87,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           child: FadeInImage.memoryNetwork(
             placeholder: kTransparentImage,
             width: MediaQuery.of(context).size.width / 3,
-            image: imdbBaseUrl.image_url + widget.movie.posterPath,
+            image: ImdbBaseUrl.image_url + widget.movie.posterPath,
           ),
         ),
       );

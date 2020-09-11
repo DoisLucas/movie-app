@@ -55,7 +55,7 @@ class MovieList extends StatelessWidget {
           child: FadeInImage.memoryNetwork(
             placeholder: kTransparentImage,
             width: 56,
-            image: imdbBaseUrl.image_url + movie.posterPath,
+            image: ImdbBaseUrl.image_url + movie.posterPath,
           ),
         ),
       );

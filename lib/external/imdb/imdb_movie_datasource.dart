@@ -15,7 +15,7 @@ class ImdbMovieDataSource implements MovieDatasource {
   @override
   Future<List<Movie>> movieUpComing(int page) async {
     Response result = await this._httpClient.get(
-        "${imdbBaseUrl.base_url}movie/upcoming?api_key=${imdbBaseUrl.api_key}&language=${imdbBaseUrl.default_language}&page=$page");
+        "${ImdbBaseUrl.base_url}movie/upcoming?api_key=${ImdbBaseUrl.api_key}&language=${ImdbBaseUrl.default_language}&page=$page");
     if (result.statusCode == 200) {
       var jsonList = result.data['results'] as List;
       List<Movie> list =
@@ -29,7 +29,7 @@ class ImdbMovieDataSource implements MovieDatasource {
   @override
   Future<MovieDetail> movieDetails(int movieId) async {
     Response result = await this._httpClient.get(
-        "${imdbBaseUrl.base_url}movie/$movieId?api_key=${imdbBaseUrl.api_key}&language=${imdbBaseUrl.default_language}");
+        "${ImdbBaseUrl.base_url}movie/$movieId?api_key=${ImdbBaseUrl.api_key}&language=${ImdbBaseUrl.default_language}");
     if (result.statusCode == 200) {
       return MovieDetailMapper.fromJson(result.data);
     } else {
@@ -40,7 +40,7 @@ class ImdbMovieDataSource implements MovieDatasource {
   @override
   Future<List<Movie>> movieByTitle(String title, int page) async {
     Response result = await this._httpClient.get(
-        "${imdbBaseUrl.base_url}search/movie?api_key=${imdbBaseUrl.api_key}&language=${imdbBaseUrl.default_language}&query=$title&page=$page&include_adult=false");
+        "${ImdbBaseUrl.base_url}search/movie?api_key=${ImdbBaseUrl.api_key}&language=${ImdbBaseUrl.default_language}&query=$title&page=$page&include_adult=false");
     if (result.statusCode == 200) {
       var jsonList = result.data['results'] as List;
       List<Movie> list =
