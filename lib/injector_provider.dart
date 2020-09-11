@@ -10,7 +10,7 @@ import 'infra/repositories/movie_repository_impl.dart';
 final GetIt inject = GetIt.I;
 
 Future<void> setupInjection() async {
-  inject.registerFactory(() => HttpClient());
+  inject.registerLazySingleton(() => HttpClient());
   inject.registerFactory(() => ImdbMovieDataSource(inject.get<HttpClient>()));
 
   inject.registerFactory(
