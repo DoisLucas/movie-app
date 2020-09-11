@@ -2,7 +2,7 @@
 
 ### About:
 
-Application that will consume The Movie Database (TMDb) where you can view upcoming movies and search for movies by text.
+Application that consumes The Movie Database (TMDb), in it you can see the next films to be released and search the films by text.
 
 ### Clean Architecture:
 
