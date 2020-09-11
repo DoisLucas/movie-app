@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:movieapp/domain/entities/movie.dart';
 import 'package:movieapp/domain/entities/movie_details.dart';
+import 'package:movieapp/external/imdb/imdb_base_url.dart';
 import 'package:movieapp/infra/datasource/movie_datasource.dart';
 import 'package:movieapp/infra/mappers/movie_details_mapper.dart';
 import 'package:movieapp/infra/mappers/movie_model_mapper.dart';
@@ -16,7 +17,7 @@ class ImdbMovieDataSource implements MovieDatasource {
   @override
   Future<List<Movie>> movieUpComing(int page) async {
     Response result = await this._httpClient.get(
-        "https://api.themoviedb.org/3/movie/upcoming?api_key=c5850ed73901b8d268d0898a8a9d8bff&language=en-US&page=$page");
+        "${imdbBaseUrl.base_url}/upcoming?api_key=${imdbBaseUrl.api_key}&language=${imdbBaseUrl.default_language}&page=$page");
     if (result.statusCode == 200) {
       var jsonList = result.data['results'] as List;
       List<Movie> list =
@@ -30,7 +31,7 @@ class ImdbMovieDataSource implements MovieDatasource {
   @override
   Future<MovieDetail> movieDetails(int movieId) async {
     Response result = await this._httpClient.get(
-        "https://api.themoviedb.org/3/movie/$movieId?api_key=c5850ed73901b8d268d0898a8a9d8bff&language=en-US");
+        "${imdbBaseUrl.base_url}/$movieId?api_key=${imdbBaseUrl.api_key}&language=${imdbBaseUrl.default_language}");
     if (result.statusCode == 200) {
       return MovieDetailMapper.fromJson(result.data);
     } else {
@@ -41,7 +42,7 @@ class ImdbMovieDataSource implements MovieDatasource {
   @override
   Future<List<Movie>> movieByTitle(String title, int page) async {
     Response result = await this._httpClient.get(
-        "https://api.themoviedb.org/3/search/movie?api_key=c5850ed73901b8d268d0898a8a9d8bff&language=en-US&query=$title&page=$page&include_adult=false");
+        "${imdbBaseUrl.base_url}?api_key=${imdbBaseUrl.api_key}&language=${imdbBaseUrl.default_language}&query=$title&page=$page&include_adult=false");
     if (result.statusCode == 200) {
       var jsonList = result.data['results'] as List;
       List<Movie> list =
