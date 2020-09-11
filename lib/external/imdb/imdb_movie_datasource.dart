@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:movieapp/domain/entities/movie.dart';
 import 'package:movieapp/domain/entities/movie_details.dart';
