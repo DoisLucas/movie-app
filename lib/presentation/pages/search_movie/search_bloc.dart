@@ -24,9 +24,18 @@ class SearchBloc {
 
   Future<void> getMoviesByTitle({int page = 1}) async {
     _isFetching = true;
-    listMovies.add(listMovies.value ??
-        <Movie>[] + await _movieByTitle(titleSearch.value, page));
-    _isFetching = false;
+
+    if (listMovies.value == null) {
+      List<Movie> movies = await _movieByTitle(titleSearch.value, page);
+      listMovies.add(<Movie>[] + movies);
+    } else {
+      List<Movie> movies = await _movieByTitle(titleSearch.value, page);
+      listMovies.add(listMovies.value + movies);
+    }
+
+    Future.delayed(Duration(seconds: 1), () {
+      _isFetching = false;
+    });
   }
 
   void nextPage() async {

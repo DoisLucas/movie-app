@@ -13,8 +13,17 @@ class HomeBloc {
 
   Future<void> getMoviesUpcoming({int page = 1}) async {
     _isFetching = true;
-    listMovies.add(listMovies.value ?? <Movie>[] + await _moviesUpcoming(page));
-    _isFetching = false;
+    if (listMovies.value == null) {
+      List<Movie> movies = await _moviesUpcoming(page);
+      listMovies.add(<Movie>[] + movies);
+    } else {
+      List<Movie> movies = await _moviesUpcoming(page);
+      listMovies.add(listMovies.value + movies);
+    }
+
+    Future.delayed(Duration(seconds: 1), () {
+      _isFetching = false;
+    });
   }
 
   void nextPage() async {
