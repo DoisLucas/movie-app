@@ -1,6 +1,5 @@
-import 'package:moviap/domain/entities/movie.dart';
-import 'package:moviap/domain/entities/movie_details.dart';
-import 'package:moviap/domain/repositories/movie_repository.dart';
+import 'package:movieapp/domain/entities/movie_details.dart';
+import 'package:movieapp/domain/repositories/movie_repository.dart';
 
 class MovieDetails {
   final MovieRepository repository;
