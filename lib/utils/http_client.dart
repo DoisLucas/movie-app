@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import 'logging_interceptors.dart';
+
 class HttpClient {
   Dio _client;
 
@@ -7,6 +9,7 @@ class HttpClient {
     _client = Dio();
     _client.options.connectTimeout = 20000;
     _client.options.receiveTimeout = 30000;
+    _client.interceptors.add(LoggingInterceptors());
   }
 
   Future<Response> get(String url) => _client.get(url);
