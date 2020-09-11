@@ -31,227 +31,226 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight:  widget.movie.backdropPath != null ? 200.0 : 50,
+              expandedHeight: widget.movie.backdropPath != null ? 200.0 : 50,
               pinned: true,
               backgroundColor: Colors.black,
-              flexibleSpace: FlexibleSpaceBar(
-                background: widget.movie.backdropPath != null ? FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  width: 56,
-                  image: imdbBaseUrl.image_url + widget.movie.backdropPath,
-                  fit: BoxFit.cover,
-                ) : Container(),
-              ),
+              flexibleSpace: _movieBackDrop(),
             ),
           ];
         },
         body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildMovieSubHeader(),
+                _sectionDivider("Overview"),
+                _buildOverview(),
+                _sectionDivider("Genre"),
+                _buildGenres(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _movieBackDrop() {
+    if (widget.movie.backdropPath != null) {
+      return FlexibleSpaceBar(
+        background: FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          width: 56,
+          image: imdbBaseUrl.image_url + widget.movie.backdropPath,
+          fit: BoxFit.cover,
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget _moviePoster() {
+    if (widget.movie.posterPath != null) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(
+            Radius.circular(3),
+          ),
+          child: FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            width: MediaQuery.of(context).size.width / 3,
+            image: imdbBaseUrl.image_url + widget.movie.posterPath,
+          ),
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget _buildMovieSubHeader() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _moviePoster(),
+        Expanded(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    widget.movie.posterPath != null
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(3),
-                              ),
-                              child: FadeInImage.memoryNetwork(
-                                placeholder: kTransparentImage,
-                                width: MediaQuery.of(context).size.width / 3,
-                                image: imdbBaseUrl.image_url +
-                                    widget.movie.posterPath,
-                              ),
-                            ),
-                          )
-                        : Container(),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            widget.movie.title,
-                            overflow: TextOverflow.fade,
-                            softWrap: true,
-                            maxLines: 3,
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontFamily: 'fontBold',
-                                color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            widget.movie.releaseDate.replaceAll('-', '/'),
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'fontMedium',
-                                color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    '${widget.movie.voteAverage}',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'fontBold',
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    'Vote Average',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white,
-                                      fontFamily: 'fontMedium',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    '${widget.movie.popularity.roundToDouble()}',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'fontBold',
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    'Popularity',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'fontMedium',
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  widget.movie.title,
+                  overflow: TextOverflow.fade,
+                  softWrap: true,
+                  maxLines: 3,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontFamily: 'fontBold',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Text(
+                widget.movie.releaseDate != null
+                    ? widget.movie.releaseDate.replaceAll('-', '/')
+                    : "Whitout release date",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'fontMedium',
+                  color: Colors.white,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.only(top: 10),
+                child: Row(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Text(
-                        'Overview',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'fontBold',
-                          color: Colors.white,
-                        ),
-                      ),
+                    _buildIndicators(
+                      'Vote Average',
+                      widget.movie.voteAverage.toString(),
                     ),
-                    Text(
-                      widget.movie.overview,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'fontMedium',
-                        color: Colors.white,
-                      ),
+                    SizedBox(
+                      width: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      child: Text(
-                        'Genre',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'fontBold',
-                          color: Colors.white,
-                        ),
-                      ),
+                    _buildIndicators(
+                      'Popularity',
+                      widget.movie.popularity.roundToDouble().toString(),
                     ),
-                    StreamBuilder<MovieDetail>(
-                        stream: _movieDetailsPageBloc.movieDetails,
-                        builder: (context, snapshot) {
-                          if (snapshot.data != null) {
-                            MovieDetail movieDetail = snapshot.data;
-                            return Wrap(
-                              direction: Axis.horizontal,
-                              alignment: WrapAlignment.start,
-                              spacing: 10,
-                              runSpacing: 10,
-                              children: movieDetail.genres.map((e) {
-                                return Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          e.name,
-                                          style: TextStyle(
-                                            fontFamily: 'fontSemiBold',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20),
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            );
-                          } else {
-                            return SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 3,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.white,
-                                ),
-                              ),
-                            );
-                          }
-                        }),
                   ],
                 ),
               ),
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildIndicators(String title, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          value,
+          style: TextStyle(
+              fontSize: 16, fontFamily: 'fontBold', color: Colors.white),
+        ),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.white,
+            fontFamily: 'fontMedium',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _sectionDivider(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 18,
+          fontFamily: 'fontBold',
+          color: Colors.white,
+        ),
       ),
+    );
+  }
+
+  Widget _buildOverview() {
+    return Text(
+      widget.movie.overview,
+      textAlign: TextAlign.justify,
+      style: TextStyle(
+        fontSize: 14,
+        fontFamily: 'fontMedium',
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _buildGenres() {
+    return StreamBuilder<MovieDetail>(
+      stream: _movieDetailsPageBloc.movieDetails,
+      builder: (context, snapshot) {
+        if (snapshot.data != null) {
+          MovieDetail movieDetail = snapshot.data;
+          return Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.start,
+            spacing: 10,
+            runSpacing: 10,
+            children: movieDetail.genres.map((genre) {
+              return Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        genre.name,
+                        style: TextStyle(
+                          fontFamily: 'fontSemiBold',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+              );
+            }).toList(),
+          );
+        } else {
+          return SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 3,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Colors.white,
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 }

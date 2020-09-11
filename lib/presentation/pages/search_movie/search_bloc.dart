@@ -13,11 +13,23 @@ class SearchBloc {
 
   SearchBloc(this._movieByTitle);
 
+  void clearListMovies() {
+    listMovies.add(null);
+  }
+
+  void resetPageIndicator() {
+    _pageIndicator = 1;
+  }
+
+  void changeTitleSearch(String value) {
+    titleSearch.add(value);
+  }
+
   Future<void> searchTitle(String title) async {
     if (title.isNotEmpty) {
-      listMovies.add(null);
-      _pageIndicator = 1;
-      titleSearch.add(title);
+      clearListMovies();
+      resetPageIndicator();
+      changeTitleSearch(title);
       await getMoviesByTitle();
     }
   }
@@ -42,7 +54,7 @@ class SearchBloc {
     if (!_isFetching) {
       _pageIndicator++;
       await getMoviesByTitle(page: _pageIndicator);
-      print("Total ${listMovies.value.length}");
+      print("Sum ${listMovies.value.length}");
     }
   }
 

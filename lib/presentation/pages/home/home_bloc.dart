@@ -30,7 +30,7 @@ class HomeBloc {
     if (!_isFetching) {
       _pageIndicator++;
       await getMoviesUpcoming(page: _pageIndicator);
-      print("Total ${listMovies.value.length}");
+      print("Sum ${listMovies.value.length}");
     }
   }
 

@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeBloc _homeBloc;
   GetIt getIt = GetIt.instance;
-
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -42,34 +41,41 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          title: Text(
-            "IMDb",
-            style: TextStyle(fontFamily: 'fontSemiBold'),
-          ),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                handleTapSearch();
-              },
-              icon: Icon(Icons.search),
-            )
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            MovieList(
-              movieStream: _homeBloc.listMovies,
-              scrollController: _scrollController,
-              context: context,
-            )
-          ],
-        ),
+        appBar: _buildAppBar(),
+        body: _buildBody(),
       ),
+    );
+  }
+
+  Widget _buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      title: Text(
+        "IMDb",
+        style: TextStyle(fontFamily: 'fontSemiBold'),
+      ),
+      actions: <Widget>[
+        IconButton(
+          onPressed: () {
+            handleTapSearch();
+          },
+          icon: Icon(Icons.search),
+        )
+      ],
+    );
+  }
+
+  Widget _buildBody() {
+    return Column(
+      children: <Widget>[
+        MovieList(
+          movieStream: _homeBloc.listMovies,
+          scrollController: _scrollController,
+          context: context,
+        )
+      ],
     );
   }
 
