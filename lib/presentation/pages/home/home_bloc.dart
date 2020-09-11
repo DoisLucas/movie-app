@@ -4,23 +4,21 @@ import 'package:rxdart/rxdart.dart';
 
 class HomeBloc {
   final MoviesUpcoming _moviesUpcoming;
+  final listMovies = BehaviorSubject<List<Movie>>();
 
-  final _listMovies = BehaviorSubject<List<Movie>>.seeded([]);
+  bool _isFetching = false;
   int _pageIndicator = 1;
-  bool isFetching = false;
 
   HomeBloc(this._moviesUpcoming);
 
-  get listMovies => _listMovies;
-
   Future<void> getMoviesUpcoming({int page = 1}) async {
-    isFetching = true;
-    listMovies.add(listMovies.value + await _moviesUpcoming(page));
-    isFetching = false;
+    _isFetching = true;
+    listMovies.add(listMovies.value ?? <Movie>[] + await _moviesUpcoming(page));
+    _isFetching = false;
   }
 
   void nextPage() async {
-    if (!isFetching) {
+    if (!_isFetching) {
       _pageIndicator++;
       await getMoviesUpcoming(page: _pageIndicator);
       print("Total ${listMovies.value.length}");
@@ -28,6 +26,6 @@ class HomeBloc {
   }
 
   void dispose() {
-    _listMovies.close();
+    listMovies.close();
   }
 }

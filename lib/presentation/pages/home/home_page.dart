@@ -40,30 +40,35 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text("MovieApp"),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              handleTapSearch();
-            },
-            icon: Icon(Icons.search),
-          )
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          MovieList(
-            context: context,
-            movieStream: _homeBloc.listMovies,
-            scrollController: _scrollController,
-          )
-        ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          title: Text(
+            "IMDb",
+            style: TextStyle(fontFamily: 'fontSemiBold'),
+          ),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                handleTapSearch();
+              },
+              icon: Icon(Icons.search),
+            )
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            MovieList(
+              movieStream: _homeBloc.listMovies,
+              scrollController: _scrollController,
+              context: context,
+            )
+          ],
+        ),
       ),
     );
   }

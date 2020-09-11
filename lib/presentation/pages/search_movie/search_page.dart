@@ -38,40 +38,120 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 100,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      controller: _searchTextController,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.arrow_back_ios, color: Colors.white)),
+                    SizedBox(
+                      width: 10,
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _searchBloc.searchTitle(_searchTextController.text);
-                    },
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      color: Colors.blue,
+                    Expanded(
+                      child: TextField(
+                        controller: _searchTextController,
+                        onSubmitted: (_) {
+                          _searchBloc.searchTitle(_searchTextController.text);
+                        },
+                        textInputAction: TextInputAction.search,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'fontMedium',
+                        ),
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Search movie by title',
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'fontMedium',
+                          ),
+                        ),
+                      ),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      width: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _searchBloc.searchTitle(_searchTextController.text);
+                      },
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(45),
+                            )),
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          MovieList(
-            movieStream: _searchBloc.listMovies,
-            scrollController: _scrollController,
-            context: context,
-          ),
-        ],
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              height: 1,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            StreamBuilder<String>(
+                stream: _searchBloc.titleSearch,
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return Container();
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'fontSemiBold',
+                            fontSize: 16,
+                          ),
+                          text: "Resultados para: ",
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '${snapshot.data}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'fontBold',
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                }),
+            SizedBox(
+              height: 15,
+            ),
+            MovieList(
+              movieStream: _searchBloc.listMovies,
+              scrollController: _scrollController,
+              context: context,
+            ),
+          ],
+        ),
       ),
     );
   }

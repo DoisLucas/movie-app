@@ -5,31 +5,32 @@ import 'package:rxdart/rxdart.dart';
 class SearchBloc {
   final MovieByTitle _movieByTitle;
 
-  final _listMovies = BehaviorSubject<List<Movie>>.seeded([]);
-  int _pageIndicator = 1;
+  final listMovies = BehaviorSubject<List<Movie>>.seeded([]);
+  final titleSearch = BehaviorSubject<String>();
 
-  String titleSearch;
-  bool isFetching = false;
+  bool _isFetching = false;
+  int _pageIndicator = 1;
 
   SearchBloc(this._movieByTitle);
 
-  get listMovies => _listMovies;
-
   Future<void> searchTitle(String title) async {
-    _pageIndicator = 1;
-    titleSearch = title;
-    _listMovies.add([]);
-    await getMoviesByTitle();
+    if (title.isNotEmpty) {
+      listMovies.add(null);
+      _pageIndicator = 1;
+      titleSearch.add(title);
+      await getMoviesByTitle();
+    }
   }
 
   Future<void> getMoviesByTitle({int page = 1}) async {
-    isFetching = true;
-    listMovies.add(listMovies.value + await _movieByTitle(titleSearch, page));
-    isFetching = false;
+    _isFetching = true;
+    listMovies.add(listMovies.value ??
+        <Movie>[] + await _movieByTitle(titleSearch.value, page));
+    _isFetching = false;
   }
 
   void nextPage() async {
-    if (!isFetching) {
+    if (!_isFetching) {
       _pageIndicator++;
       await getMoviesByTitle(page: _pageIndicator);
       print("Total ${listMovies.value.length}");
@@ -37,6 +38,6 @@ class SearchBloc {
   }
 
   void dispose() {
-    _listMovies.close();
+    listMovies.close();
   }
 }
