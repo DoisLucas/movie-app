@@ -33,7 +33,7 @@ class MovieMapper extends Movie {
       this.releaseDate});
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['popularity'] = this.popularity;
     data['vote_count'] = this.voteCount;
     data['video'] = this.video;

@@ -4,17 +4,15 @@ import 'package:rxdart/rxdart.dart';
 
 class MovieDetailsPageBloc {
   final MovieDetails _moviesDetails;
-  final _movieDetails = BehaviorSubject<MovieDetail>();
+  final movieDetails = BehaviorSubject<MovieDetail>();
 
   MovieDetailsPageBloc(this._moviesDetails);
 
-  get movieDetails => _movieDetails;
-
   Future<void> getMovieDetails(int movieId) async {
-    _movieDetails.add(await _moviesDetails(movieId));
+    movieDetails.add(await _moviesDetails(movieId));
   }
 
   void dispose() {
-    _movieDetails.close();
+    movieDetails.close();
   }
 }

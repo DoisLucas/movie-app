@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/injector_provider.dart';
 import 'package:movieapp/presentation/pages/home/home_page.dart';
 
+//TODO Refactor code UI
+//TODO Readme
+//TODO Open PR
+
 void main() {
   setupInjection();
   runApp(MyApp());

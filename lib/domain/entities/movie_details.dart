@@ -58,6 +58,3 @@ class MovieDetail {
     this.voteAverage,
   });
 }
-
-
-

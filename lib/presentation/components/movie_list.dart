@@ -26,7 +26,7 @@ class MovieList extends StatelessWidget {
                   width: 50,
                   height: 50,
                   child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 ),
               ),
