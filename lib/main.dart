@@ -5,6 +5,7 @@ import 'package:movieapp/presentation/pages/home/home_page.dart';
 //TODO Refactor code UI
 //TODO Readme
 //TODO Open PR
+//TODO Verificar iOS
 
 void main() {
   setupInjection();
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IMDB Movies',
+      title: 'IMDb Movies',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

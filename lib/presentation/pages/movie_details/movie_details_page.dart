@@ -36,16 +36,16 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 200.0,
+              expandedHeight:  widget.movie.backdropPath != null ? 200.0 : 50,
               pinned: true,
               backgroundColor: Colors.black,
               flexibleSpace: FlexibleSpaceBar(
-                background: FadeInImage.memoryNetwork(
+                background: widget.movie.backdropPath != null ? FadeInImage.memoryNetwork(
                   placeholder: kTransparentImage,
                   width: 56,
                   image: imdbBaseUrl.image_url + widget.movie.backdropPath,
                   fit: BoxFit.cover,
-                ),
+                ) : Container(),
               ),
             ),
           ];
