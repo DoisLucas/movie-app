@@ -1,16 +1,20 @@
-# movieapp
+## MovieApp
 
-A new Flutter project.
+### About:
 
-## Getting Started
+Application that will consume The Movie Database (TMDb) where you can view upcoming movies and search for movies by text.
 
-This project is a starting point for a Flutter application.
+### Packages used:
 
-A few resources to get you started if this is your first Flutter project:
+#### [Dio:](https://pub.dev/packages/dio)
+> A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData, Request Cancellation, File downloading, Timeout etc.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#### [RxDart:](https://pub.dev/packages/rxdart)
+> RxDart is a reactive functional programming library for Google Dart, based on ReactiveX.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### [GetIt:](https://pub.dev/packages/get_it)
+> This is a simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by Splat. It can be used instead of InheritedWidget or Provider to access objects e.g. from your UI.
+
+#### [transparent_image:](https://pub.dev/packages/transparent_image)
+> A simple transparent image. Represented as a Uint8List, which was originally extracted from the Flutter codebase (was private in the test package).
+
